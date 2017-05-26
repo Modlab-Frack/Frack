@@ -14,6 +14,7 @@ public class Maintenance {
     public GameObject[] players1;
 	public int currentPlayer = 0;
 	public int currentTurn = 0;
+    public Event[] eventArray;
 
 	//Game Constructor
 	public Maintenance()
@@ -41,9 +42,9 @@ public class Maintenance {
 		currentTurn += 1;
 		if(currentTurn % MasterControl.control.getNumOfPlayers() == 0)
 		{
+            currentPlayer = 0;
 			foreach(GameObject player in players1)//(Player player in players)
 			{
-                Debug.Log("Publicity: " + player.GetComponent<Player>().publicity);
                 Player temp = player.GetComponent<Player>();
                 foreach (Cell mine in temp.playerOwnedCells)//(Cell mine in player.playerOwnedCells)
 				{
@@ -52,12 +53,15 @@ public class Maintenance {
 						break;
 					}
                     temp.money += mine.drillTheMines() * 100;
-					//player.money += mine.drillTheMines() * 100;
-					/*
+                    //player.money += mine.drillTheMines() * 100;
+                    /*
 					// WILL WANT TO CHANGE THIS TO GAS ONCE THERES A WAY TO EXCHANGE
 					*/
-				}
-			}
+                }
+                
+                Debug.Log(temp.money);
+                temp.moneyText.text = temp.money.ToString();
+            }
 			Event();
 			UpdateMainUI();
 			currentPlayer = 0;
@@ -68,6 +72,10 @@ public class Maintenance {
 	// to number of players
 	public void UpdateMainUI()
 	{
+
+        //Player temp = MasterControl.control.currGame.players1[0].GetComponent<Player>();
+
+       // temp.moneyText.text = "Test";
 		/*
 		string playerUIText = "Player 1: $" + players[0].money + ", G " + players[0].gas + "\n";
 		for(int i = 1; i < MasterControl.control.getNumOfPlayers(); i++)

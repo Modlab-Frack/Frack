@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 /*
@@ -19,5 +20,6 @@ public class Player : MonoBehaviour
     public float legalUpgradeCost = 1;
     public float publicityUpgradeCost = 1;
     public float researchUpgradeCost = 1;
+    public Text moneyText;
 	public Cell[] playerOwnedCells = new Cell[200];
 }

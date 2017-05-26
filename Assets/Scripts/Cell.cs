@@ -97,7 +97,8 @@ public class Cell : MonoBehaviour{
 		{
 			if(owner == -1)
 			{
-				//Survey/Buy
+                //Survey/Buy
+                Debug.Log(MasterControl.control.currGame.currentPlayer);
 				if(MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money >= currentCost)
 				{
 					owner = MasterControl.control.currGame.currentPlayer;
