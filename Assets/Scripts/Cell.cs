@@ -103,8 +103,12 @@ public class Cell : MonoBehaviour{
 				{
 					owner = MasterControl.control.currGame.currentPlayer;
 					MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().playerOwnedCells[MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().cellsOwned++] = this;
-					MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money -= currentCost;
-					MasterControl.control.currGame.UpdateMainUI();
+                    int cell = MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().cellsOwned;
+                    MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().cellsText.text = cell.ToString();
+                    MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money -= currentCost;
+                    float money = MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money;
+                    MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().moneyText.text = money.ToString();
+                    MasterControl.control.currGame.UpdateMainUI();
 					ChangeColor(owner);
 					GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.125f, 0.0f));
 					readyTurn = MasterControl.control.currGame.currentTurn - owner + (MasterControl.control.getNumOfPlayers()*1);
@@ -124,7 +128,9 @@ public class Cell : MonoBehaviour{
 							{
 								GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.375f, 0.0f));
 								MasterControl.control.currGame.players1[owner].GetComponent<Player>().money -= currentCost;
-								MasterControl.control.currGame.UpdateMainUI();
+                                MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money -= currentCost;
+                                float money = MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money;
+                                MasterControl.control.currGame.UpdateMainUI();
 								readyTurn = MasterControl.control.currGame.currentTurn - owner + (MasterControl.control.getNumOfPlayers()*2);
 								SetDifficulty();
 							}
@@ -136,7 +142,9 @@ public class Cell : MonoBehaviour{
 							{
 								GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.5f, 0.0f));
 								MasterControl.control.currGame.players1[owner].GetComponent<Player>().money -= currentCost;
-								MasterControl.control.currGame.UpdateMainUI();
+                                MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money -= currentCost;
+                                float money = MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money;
+                                MasterControl.control.currGame.UpdateMainUI();
 								readyTurn = MasterControl.control.currGame.currentTurn - owner + (MasterControl.control.getNumOfPlayers()*2);
 								SetDifficulty();
 							}
@@ -148,7 +156,9 @@ public class Cell : MonoBehaviour{
 							{
 								GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.625f, 0.0f));
 								MasterControl.control.currGame.players1[owner].GetComponent<Player>().money -= currentCost;
-								MasterControl.control.currGame.UpdateMainUI();
+                                MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money -= currentCost;
+                                float money = MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money;
+                                MasterControl.control.currGame.UpdateMainUI();
 								readyTurn = MasterControl.control.currGame.currentTurn - owner + (MasterControl.control.getNumOfPlayers()*2);
 								SetDifficulty();
 							}
@@ -160,7 +170,9 @@ public class Cell : MonoBehaviour{
 							{
 								GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.75f, 0.0f));
 								MasterControl.control.currGame.players1[owner].GetComponent<Player>().money -= currentCost;
-								MasterControl.control.currGame.UpdateMainUI();
+                                MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money -= currentCost;
+                                float money = MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money;
+                                MasterControl.control.currGame.UpdateMainUI();
 								readyTurn = MasterControl.control.currGame.currentTurn - owner + (MasterControl.control.getNumOfPlayers()*2);
 								SetDifficulty();
 							}
@@ -172,7 +184,9 @@ public class Cell : MonoBehaviour{
 							{
 								GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.875f, 0.0f));
 								MasterControl.control.currGame.players1[owner].GetComponent<Player>().money -= currentCost;
-								MasterControl.control.currGame.UpdateMainUI();
+                                MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money -= currentCost;
+                                float money = MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>().money;
+                                MasterControl.control.currGame.UpdateMainUI();
 								readyTurn = MasterControl.control.currGame.currentTurn - owner + (MasterControl.control.getNumOfPlayers()*2);
 								SetDifficulty();
 							}
@@ -284,7 +298,7 @@ public class Cell : MonoBehaviour{
 		if(readyTurn == MasterControl.control.currGame.currentTurn)
 		{
 			phase++;
-		}
+        }
 		if(phase < 2 || isEmpty)
 		{
 			return 0;

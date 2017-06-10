@@ -49,31 +49,31 @@ public class Maintenance {
                 foreach (Cell mine in temp.playerOwnedCells)//(Cell mine in player.playerOwnedCells)
 				{
 					if(mine == null)
-					{
 						break;
-					}
+
                     temp.money += mine.drillTheMines() * 100;
+
                     //player.money += mine.drillTheMines() * 100;
                     /*
 					// WILL WANT TO CHANGE THIS TO GAS ONCE THERES A WAY TO EXCHANGE
 					*/
                 }
-                
                 Debug.Log(temp.money);
                 temp.moneyText.text = temp.money.ToString();
+                temp.cellsText.text = temp.cellsOwned.ToString();
             }
 			Event();
 			UpdateMainUI();
 			currentPlayer = 0;
 		}
 	}
-
+    /*
     public void readEvent()
     {
         StreamReader reader = File.OpenText("filename.txt");
         string line;
         Event newEvent = new Event();
-        Option[] allOptions = new Option[];
+        ArrayList allOptions = new ArrayList();
         string[] numOptions = new string[] {"I", "II", "III", "IV", "V"}; 
 
         while ((line = reader.ReadLine()) != null)
@@ -95,16 +95,17 @@ public class Maintenance {
 
         }
     }
-
+    */
 	//Updates Player Scores, we need to at the very least make the text it displays dynamic
 	// to number of players
 	public void UpdateMainUI()
 	{
-
+        //Player curPlayer = MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>();
+        //curPlayer.moneyText.text = curPlayer.money.ToString();
         //Player temp = MasterControl.control.currGame.players1[0].GetComponent<Player>();
 
-       // temp.moneyText.text = "Test";
-		/*
+        // temp.moneyText.text = "Test";
+        /*
 		string playerUIText = "Player 1: $" + players[0].money + ", G " + players[0].gas + "\n";
 		for(int i = 1; i < MasterControl.control.getNumOfPlayers(); i++)
 		{
@@ -113,7 +114,7 @@ public class Maintenance {
 		Text textValue1 = GameObject.FindGameObjectsWithTag("PlayerInfo")[0].GetComponentInChildren<Text>();
 		textValue1.text = playerUIText;
 		*/
-	}
+    }
 
 	// EventSystem??
 	public void Event()

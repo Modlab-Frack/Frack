@@ -21,5 +21,6 @@ public class Player : MonoBehaviour
     public float publicityUpgradeCost = 1;
     public float researchUpgradeCost = 1;
     public Text moneyText;
-	public Cell[] playerOwnedCells = new Cell[200];
+    public Text cellsText;
+    public Cell[] playerOwnedCells = new Cell[200];
 }
