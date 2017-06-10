@@ -19,8 +19,7 @@ public class Event : MonoBehaviour
     public Text eventDescription;
     public State state;
     public Option[] options;
-    
-    
+
     //Might use this variable if number of options is not constant
     //public int numOptions;
     	

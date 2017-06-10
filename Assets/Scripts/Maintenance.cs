@@ -68,6 +68,34 @@ public class Maintenance {
 		}
 	}
 
+    public void readEvent()
+    {
+        StreamReader reader = File.OpenText("filename.txt");
+        string line;
+        Event newEvent = new Event();
+        Option[] allOptions = new Option[];
+        string[] numOptions = new string[] {"I", "II", "III", "IV", "V"}; 
+
+        while ((line = reader.ReadLine()) != null)
+        {
+            if (line == '\n')
+            {
+                newEvent.eventDescription = eventDescription;
+                newEvent.options = allOptions;
+                continue;
+            }
+
+            if (numOptions.Contains(line[0]))
+            {
+                Text optionDescription;
+                optionDescription.text = line;
+
+            }
+
+
+        }
+    }
+
 	//Updates Player Scores, we need to at the very least make the text it displays dynamic
 	// to number of players
 	public void UpdateMainUI()
