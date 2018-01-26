@@ -9,7 +9,7 @@ using System.IO;
  * Will contain event variables and helper functions
  */ 
 
-public class Event : MonoBehaviour
+public class Event
 {
     public string eventDescription;
     public Option[] options = new Option[3];
@@ -20,7 +20,7 @@ public class Event : MonoBehaviour
     }
 }
 
-public class Option : MonoBehaviour
+public class Option
 {
     public string optionDescription;
     public int prEffect;

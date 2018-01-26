@@ -7,24 +7,28 @@ public class EventMaintenance : MonoBehaviour {
     public List<Event> events = new List<Event>();
 
 	// Use this for initialization
-	void Start () {
+	public EventMaintenance() {
 
         // Read in event csv
-        using (var reader = new StreamReader(@"C:\test.csv"))
+        using (var reader = new StreamReader(@"Assets/Scripts/testOptions.tsv"))
         {
+            reader.ReadLine();
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
                 var values = line.Split('\t');
                 string description = values[4];
+                Debug.Log(description);
                 Event newEvent = new Event(description);
                 events.Add(newEvent);
             }
         }
 
-        using (var reader = new StreamReader(@"C:\test.csv"))
+        using (var reader = new StreamReader(@"Assets/Scripts/testEvents.tsv"))
         {
             int count = 0;
+            reader.ReadLine();
+            int lineNum = 0;
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
@@ -41,15 +45,17 @@ public class EventMaintenance : MonoBehaviour {
                 double chance = double.Parse(values[9]);
                 int marketEffect = int.Parse(values[10]);
                 int regulation = int.Parse(values[11]);
-                string link = values[12];
-                string optionDescription = values[13];
+                string optionDescription = values[12];
+                Debug.Log(optionDescription);
+                Debug.Log(count);
 
-                events[eventID].options[count] = new Option(optionDescription, prEffect, legalEffect, researchEffect,
+                events[eventID - 1].options[count] = new Option(optionDescription, prEffect, legalEffect, researchEffect,
                                                             moneyPercentChange, prReq, legalReq, researchReq, doomCounter,
-                                                            chance, marketEffect, regulation, link);
-
+                                                            chance, marketEffect, regulation, optionDescription);
+                
+                lineNum = lineNum + 1;
                 count = (count + 1) % 3;
-            }
+           } 
         }
     }
 	

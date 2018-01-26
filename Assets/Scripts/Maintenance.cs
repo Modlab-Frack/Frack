@@ -14,12 +14,13 @@ public class Maintenance {
     public GameObject[] players1;
 	public int currentPlayer = 0;
 	public int currentTurn = 0;
-    public Event[] eventArray;
+    public EventMaintenance events;
 
 	//Game Constructor
 	public Maintenance()
 	{
 		gameMap = new Map();
+        events = new EventMaintenance();
 		//players = new Player[MasterControl.control.getNumOfPlayers()];
         players1 = new GameObject[MasterControl.control.getNumOfPlayers()];
         for (int i = 0; i < MasterControl.control.getNumOfPlayers(); i++)
