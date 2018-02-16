@@ -52,7 +52,7 @@ public class UIController : MonoBehaviour
             settingsPopup.Close();
 
         countOne = (countOne + 1) % 2;
-        Debug.Log("Publicity: " + MasterControl.control.currGame.players1[owner].GetComponent<Player>().publicity);
+        //Debug.Log("Publicity: " + MasterControl.control.currGame.players1[owner].GetComponent<Player>().publicity);
     }
 
     //Function to control the popup for the legal upgrade setting.

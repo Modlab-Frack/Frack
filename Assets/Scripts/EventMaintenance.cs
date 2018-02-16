@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 
-public class EventMaintenance : MonoBehaviour {
+public class EventMaintenance {
     public List<Event> events = new List<Event>();
 
 	// Use this for initialization
@@ -18,7 +18,7 @@ public class EventMaintenance : MonoBehaviour {
                 var line = reader.ReadLine();
                 var values = line.Split('\t');
                 string description = values[4];
-                Debug.Log(description);
+                //Debug.Log(description);
                 Event newEvent = new Event(description);
                 events.Add(newEvent);
             }
@@ -46,8 +46,8 @@ public class EventMaintenance : MonoBehaviour {
                 int marketEffect = int.Parse(values[10]);
                 int regulation = int.Parse(values[11]);
                 string optionDescription = values[12];
-                Debug.Log(optionDescription);
-                Debug.Log(count);
+                //Debug.Log(optionDescription);
+                //Debug.Log(count);
 
                 events[eventID - 1].options[count] = new Option(optionDescription, prEffect, legalEffect, researchEffect,
                                                             moneyPercentChange, prReq, legalReq, researchReq, doomCounter,

@@ -15,6 +15,7 @@ public class Maintenance {
 	public int currentPlayer = 0;
 	public int currentTurn = 0;
     public EventMaintenance events;
+    public TurnMovement playerMovement = new TurnMovement();
 
 	//Game Constructor
 	public Maintenance()
@@ -40,7 +41,17 @@ public class Maintenance {
 	public void EndTurn()
 	{
 		currentPlayer += 1;
-		currentTurn += 1;
+
+        if (currentPlayer == 3)
+            playerMovement.movePlayer1();
+
+        else if (currentPlayer == 1)
+            playerMovement.movePlayer2();
+
+        else if (currentPlayer == 2)
+            playerMovement.movePlayer3();
+
+        currentTurn += 1;
 		if(currentTurn % MasterControl.control.getNumOfPlayers() == 0)
 		{
             currentPlayer = 0;
