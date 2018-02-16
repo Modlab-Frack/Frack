@@ -12,7 +12,7 @@ public class CallEvent : MonoBehaviour {
     public void runEvent()
     {
         
-        EventMenuUI= GameObject.FindWithTag("Brian");
+        //EventMenuUI= GameObject.FindWithTag("Brian");
 
 
         Debug.Log("running event");

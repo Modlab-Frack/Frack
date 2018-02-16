@@ -63,6 +63,7 @@ public class MasterControl : MonoBehaviour {
 	public void EndTurn() //This does not get triggered when button is clicked 
 	{
 		Debug.Log("Next Turn");
+        Debug.Log("Received");
         eventcard = new CallEvent();
         currGame.EndTurn();
         
