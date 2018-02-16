@@ -9,7 +9,9 @@ If not on a gameobject then we can only access it through mastercontrol
 
 public class Maintenance {
 
-	public Map gameMap;
+    //public GameObject EventMenuUI;
+
+    public Map gameMap;
     //public Player[] players;
     public GameObject[] players1;
 	public int currentPlayer = 0;
@@ -39,7 +41,8 @@ public class Maintenance {
 	//Ends a players turn
 	public void EndTurn()
 	{
-		currentPlayer += 1;
+        //Debug.Log("Received");
+        currentPlayer += 1;
 		currentTurn += 1;
 		if(currentTurn % MasterControl.control.getNumOfPlayers() == 0)
 		{
@@ -67,7 +70,18 @@ public class Maintenance {
 			UpdateMainUI();
 			currentPlayer = 0;
 		}
-	}
+	} //this endturn works MAINENCE
+
+    /*
+    This function is intended to give the new player a random event that the player must deal with before completing thier next turn.
+    */
+
+    public void startEvent()
+    {
+        Debug.Log("Start Event!");
+        //CallEvent.eventcard.runEvent();
+        
+    }
     /*
     public void readEvent()
     {

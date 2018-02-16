@@ -6,11 +6,16 @@ Handles the most general and basic functions of maintaining the game.
 Functions here can be called in other scripts by using MasterControl.control.(insertFunctionHere)
 */
 
+
 public class MasterControl : MonoBehaviour {
 
 	public static MasterControl control;
 	public Maintenance currGame;
-	private int numOfPlayers = 3;
+
+    public CallEvent eventcard;
+    //public GameObject EventMenuUI;
+
+    private int numOfPlayers = 3;
 	private bool newGame = true;
 
 	void Awake () {
@@ -25,7 +30,11 @@ public class MasterControl : MonoBehaviour {
 		}
 		//TEMPORARILY HERE vvv
 		OnLevelWasLoaded();
-	}
+
+       
+        
+   
+    }
 
 	//Will be used to save active games
 	public void Save()
@@ -51,11 +60,20 @@ public class MasterControl : MonoBehaviour {
 		*/
 	}
 
-	public void EndTurn()
+	public void EndTurn() //This does not get triggered when button is clicked 
 	{
 		Debug.Log("Next Turn");
-		currGame.EndTurn();
+        eventcard = new CallEvent();
+        currGame.EndTurn();
+        
+        Debug.Log("Received");
 	}
+
+
+
+
+
+
 
 	void OnLevelWasLoaded()
 	{
@@ -64,7 +82,8 @@ public class MasterControl : MonoBehaviour {
 			if(newGame)
 			{
 				currGame = new Maintenance();
-			}
+                eventcard = new CallEvent();
+            }
 			else
 			{
 				//Load Pertinent Data	
