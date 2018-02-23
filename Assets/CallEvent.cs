@@ -9,6 +9,11 @@ public class CallEvent : MonoBehaviour {
     public GameObject EventMenuUI;
 
   
+    void Start()
+    {
+
+    }
+
     public void runEvent()
     {
         
@@ -17,6 +22,8 @@ public class CallEvent : MonoBehaviour {
 
         Debug.Log("running event");
 
+        GameObject paddleGameObject = GameObject.Find("EventMenu");
+        paddleGameObject.SetActive(true);
         EventMenuUI.SetActive (true);
 
         Time.timeScale = 0f;
