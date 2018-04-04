@@ -45,13 +45,19 @@ public class UIController : MonoBehaviour
         owner = MasterControl.control.currGame.currentPlayer;
 
         //Popup will only show when countOne is 0 and it is currently player1's turn (owner - 1)
-        if (countOne == 0 && owner == 0)
+        if (countOne == 0 && owner == 0
+            || (countOne == 1 && owner == 1)
+            || (countOne == 2 && owner == 2))
+        {
+            settingsPopup.setCurrPlayer(owner);
             settingsPopup.Open();
-
+        }            
         else
             settingsPopup.Close();
 
-        countOne = (countOne + 1) % 2;
+        countOne = (countOne + 1) % 3;
+
+        Debug.Log("countOne = " + countOne);
         Debug.Log("Publicity: " + MasterControl.control.currGame.players1[owner].GetComponent<Player>().publicity);
     }
 
