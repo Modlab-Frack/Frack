@@ -7,12 +7,16 @@ Functions here can be called in other scripts by using MasterControl.control.(in
 */
 
 
+
+[RequireComponent(typeof(AudioSource))]
+
+
 public class MasterControl : MonoBehaviour {
 
 	public static MasterControl control;
 	public Maintenance currGame;
 
-    public CallEvent eventcard;
+    
     //public GameObject EventMenuUI;
 
     private int numOfPlayers = 3;
@@ -60,18 +64,7 @@ public class MasterControl : MonoBehaviour {
 		*/
 	}
 
-	public void EndTurn() //This does not get triggered when button is clicked 
-	{
-		Debug.Log("Next Turn");
-        Debug.Log("Received");
-        eventcard = new CallEvent();
-        currGame.EndTurn();
-        
-        Debug.Log("Received");
-	}
-
-
-
+	
 
 
 
@@ -83,7 +76,7 @@ public class MasterControl : MonoBehaviour {
 			if(newGame)
 			{
 				currGame = new Maintenance();
-                eventcard = new CallEvent();
+                
             }
 			else
 			{

@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerISS : MonoBehaviour {
+
     [SerializeField]
     private StateISS health;
 
@@ -28,5 +30,24 @@ public class PlayerISS : MonoBehaviour {
         {
             health.CurrentVal += 10;
         }
+
+        if (health.CurrentVal == 0)
+        {
+            health.CurrentVal = 100;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            
+        }
     }
+
+    public void takedamage(float number)
+    {
+        health.CurrentVal -= number;
+    }
+
+  
+       
+    
+
+
+
 }

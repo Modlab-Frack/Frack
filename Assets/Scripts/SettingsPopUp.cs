@@ -9,18 +9,9 @@ using System.Collections;
 
 public class SettingsPopUp : MonoBehaviour
 {
-    private int currPlayer = 0;
-
-    public void setCurrPlayer(int count)
-    {
-        currPlayer = count;
-    }
-
     public void Open()
     {
-        Debug.Log("currentPlayer: " + currPlayer);
-        if (gameObject.tag == ("info" + (currPlayer + 1)))
-            gameObject.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public void Close()
