@@ -3,8 +3,10 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 
-public class EventMaintenance {
+public class EventMaintenance
+{
     public List<Event> events = new List<Event>();
+    public int pick = -1;
 
 	// Use this for initialization
 	public EventMaintenance() {
@@ -46,8 +48,6 @@ public class EventMaintenance {
                 int marketEffect = int.Parse(values[10]);
                 int regulation = int.Parse(values[11]);
                 string optionDescription = values[12];
-                //Debug.Log(optionDescription);
-                //Debug.Log(count);
 
                 events[eventID - 1].options[count] = new Option(optionDescription, prEffect, legalEffect, researchEffect,
                                                             moneyPercentChange, prReq, legalReq, researchReq, doomCounter,
@@ -59,8 +59,18 @@ public class EventMaintenance {
         }
     }
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	public Event getRandomEvent()
+    {
+        //Debug.Log(Random.Range(0, events.Count));
+        int selectedEvent = Random.Range(0, events.Count*2);
+        //Debug.Log(selectedEvent);
+
+        if (selectedEvent >= events.Count)
+        {
+            Debug.Log("Event Not Shown This Turn");
+            return null;
+        }
+
+        return events[selectedEvent];
+    }
 }

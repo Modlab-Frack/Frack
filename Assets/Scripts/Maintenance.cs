@@ -15,12 +15,27 @@ public class Maintenance {
 	public int currentPlayer = 0;
 	public int currentTurn = 0;
     public EventMaintenance events;
+    public Event CurrentEvent = null;
+    public bool eventOn = false;
     public TurnMovement playerMovement = new TurnMovement();
+
 
 	//Game Constructor
 	public Maintenance()
 	{
-		gameMap = new Map();
+        Button optionOne = GameObject.FindGameObjectWithTag("Option1Button").GetComponent<Button>();
+        optionOne.onClick.AddListener(selectFirstOption);
+
+        Button optionTwo = GameObject.FindGameObjectWithTag("Option2Button").GetComponent<Button>();
+        optionTwo.onClick.AddListener(selectSecondOption);
+
+        Button optionThree = GameObject.FindGameObjectWithTag("Option3Button").GetComponent<Button>();
+        optionThree.onClick.AddListener(selectThirdOption);
+
+        GameObject eventPopup = GameObject.FindGameObjectWithTag("Event");
+        Image eventImage = eventPopup.GetComponent<Image>();
+        eventImage.enabled = false;
+        gameMap = new Map();
         events = new EventMaintenance();
 		//players = new Player[MasterControl.control.getNumOfPlayers()];
         players1 = new GameObject[MasterControl.control.getNumOfPlayers()];
@@ -40,7 +55,8 @@ public class Maintenance {
 	//Ends a players turn
 	public void EndTurn()
 	{
-		currentPlayer += 1;
+        //CloseEvent();
+        currentPlayer += 1;
 
         if (currentPlayer == 3)
             playerMovement.movePlayer1();
@@ -70,44 +86,18 @@ public class Maintenance {
 					// WILL WANT TO CHANGE THIS TO GAS ONCE THERES A WAY TO EXCHANGE
 					*/
                 }
-                Debug.Log(temp.money);
+                //Debug.Log(temp.money);
                 temp.moneyText.text = temp.money.ToString();
                 temp.cellsText.text = temp.cellsOwned.ToString();
             }
-			Event();
+            //Event();
 			UpdateMainUI();
 			currentPlayer = 0;
 		}
-	}
-    /*
-    public void readEvent()
-    {
-        StreamReader reader = File.OpenText("filename.txt");
-        string line;
-        Event newEvent = new Event();
-        ArrayList allOptions = new ArrayList();
-        string[] numOptions = new string[] {"I", "II", "III", "IV", "V"}; 
 
-        while ((line = reader.ReadLine()) != null)
-        {
-            if (line == '\n')
-            {
-                newEvent.eventDescription = eventDescription;
-                newEvent.options = allOptions;
-                continue;
-            }
-
-            if (numOptions.Contains(line[0]))
-            {
-                Text optionDescription;
-                optionDescription.text = line;
-
-            }
-
-
-        }
+        eventOn = ShowEvent();
     }
-    */
+
 	//Updates Player Scores, we need to at the very least make the text it displays dynamic
 	// to number of players
 	public void UpdateMainUI()
@@ -128,11 +118,135 @@ public class Maintenance {
 		*/
     }
 
-	// EventSystem??
-	public void Event()
-	{
+    public bool ShowEvent()
+    {
+        GameObject eventPopup = GameObject.FindGameObjectWithTag("Event");
+        Image eventImage = eventPopup.GetComponent<Image>();
+        Event eventDesc = events.getRandomEvent();
 
-	}
+        if (eventDesc == null)
+            return false;
+
+        CurrentEvent = eventDesc;
+        eventImage.enabled = true;
+        Text my_text = GameObject.FindGameObjectWithTag("EventDescription").GetComponent<Text>();
+
+        for(int i = 1; i <= 3; i++)
+        {
+            string romanNumeral = "";
+
+            if (i == 1)
+                romanNumeral = "I. ";
+
+            else if (i == 2)
+                romanNumeral = "II. ";
+
+            else if (i == 3)
+                romanNumeral = "III. ";
+
+            string tag = "Option" + i.ToString() + "Button";
+            Button option = GameObject.FindGameObjectWithTag(tag).GetComponent<Button>();
+            option.GetComponentInChildren<Text>().text = romanNumeral + eventDesc.options[i - 1].optionDescription;
+        }
+        //Button option1Button = GameObject.FindGameObjectWithTag("Option1Button").GetComponent<Button>();
+        //option1Button.GetComponentInChildren<Text>().text = "I. " + eventDesc.options[0].optionDescription;
+        //Text option1 = GameObject.FindGameObjectWithTag("Option1").GetComponent<Text>();
+        //Text option2 = GameObject.FindGameObjectWithTag("Option2").GetComponent<Text>();
+        my_text.text = eventDesc.eventDescription;
+        //option1.text = "I. " + eventDesc.options[0].optionDescription;
+        //option2.text = "II. " + eventDesc.options[1].optionDescription;
+
+        return true;
+    }
+
+    public bool checkRequirement(Option chosenOption)
+    {
+        Debug.Log("Player Number " + MasterControl.control.currGame.currentPlayer.ToString());
+        Player curPlayer = MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>();
+
+        if (curPlayer.lawyers < (-1 * chosenOption.legalReq))
+            return false;
+
+        if (curPlayer.publicity < (-1 * chosenOption.prReq))
+            return false;
+
+        if (curPlayer.research < (-1 * chosenOption.prReq))
+            return false;
+
+        int rng = Random.Range(0, 100);
+
+        if (rng <= chosenOption.chance)
+            return false;
+
+        return true;
+    }
+
+    public void updateStats()
+    {
+        Option chosenOption = CurrentEvent.options[events.pick];
+
+        if (!checkRequirement(chosenOption))
+        {
+            Debug.Log("Failed");
+            return;
+        }
+
+        Debug.Log("Success");
+        Player curPlayer = MasterControl.control.currGame.players1[MasterControl.control.currGame.currentPlayer].GetComponent<Player>();
+        Debug.Log("Original Research Score: " + curPlayer.research.ToString());
+        curPlayer.research += chosenOption.researchEffect;
+        Debug.Log("New Research Score: " + curPlayer.research.ToString());
+        curPlayer.publicity += chosenOption.prEffect;
+        curPlayer.lawyers += chosenOption.legalEffect;
+        curPlayer.money += (curPlayer.money * (float)chosenOption.moneyPercentChange);
+
+        //Update Doomcounter here
+
+    }
+
+    public bool CloseEvent()
+    {
+        updateStats();
+        GameObject eventPopup = GameObject.FindGameObjectWithTag("Event");
+        Image eventImage = eventPopup.GetComponent<Image>();
+        if (eventImage.enabled == true)
+        {
+            Text my_text = GameObject.FindGameObjectWithTag("EventDescription").GetComponent<Text>();
+            Text option1 = GameObject.FindGameObjectWithTag("Option1").GetComponent<Text>();
+            Text option2 = GameObject.FindGameObjectWithTag("Option2").GetComponent<Text>();
+            Text option3 = GameObject.FindGameObjectWithTag("Option3").GetComponent<Text>();
+            //Text option2 = GameObject.FindGameObjectWithTag("Option2").GetComponent<Text>();
+            my_text.text = "";
+            option1.text = "";
+            option2.text = "";
+            option3.text = "";
+            eventImage.enabled = false;
+        }
+
+        return false;
+    }
+
+
+    public void selectFirstOption()
+    {
+        Debug.Log("Clicked 1");
+        events.pick = 0;
+        CloseEvent();
+    }
+
+    public void selectSecondOption()
+    {
+        Debug.Log("Clicked 2");
+        events.pick = 1;
+        CloseEvent();
+    }
+
+    public void selectThirdOption()
+    {
+        Debug.Log("Clicked 3");
+        events.pick = 2;
+        CloseEvent();
+    }
 }
 
 /* ---Old Code For Reference---
