@@ -120,12 +120,38 @@ public class Maintenance {
 
     public bool ShowEvent()
     {
+        
         GameObject eventPopup = GameObject.FindGameObjectWithTag("Event");
         Image eventImage = eventPopup.GetComponent<Image>();
+
+
+        //eventImage.enabled = true;
+
+
+
         Event eventDesc = events.getRandomEvent();
 
         if (eventDesc == null)
             return false;
+
+        GameObject gameobject1 = GameObject.FindWithTag("Option1Button");
+        //  gameobject1.SetActive(true);
+        Button option1a = GameObject.FindGameObjectWithTag("Option1Button").GetComponent<Button>();
+        //option1a.enabled = false;
+        option1a.interactable = true;
+
+        GameObject gameobject2 = GameObject.FindWithTag("Option2Button");
+        // gameobject2.SetActive(true);
+        Button option2a = GameObject.FindGameObjectWithTag("Option2Button").GetComponent<Button>();
+        option2a.interactable = true;
+
+        GameObject gameobject3 = GameObject.FindWithTag("Option3Button");
+        //  gameobject3.SetActive(true);
+        Button option3a = GameObject.FindGameObjectWithTag("Option3Button").GetComponent<Button>();
+        option3a.interactable = true;
+
+
+
 
         CurrentEvent = eventDesc;
         eventImage.enabled = true;
@@ -209,6 +235,13 @@ public class Maintenance {
         updateStats();
         GameObject eventPopup = GameObject.FindGameObjectWithTag("Event");
         Image eventImage = eventPopup.GetComponent<Image>();
+
+
+        //eventImage.enabled = false;
+
+
+
+
         if (eventImage.enabled == true)
         {
             Text my_text = GameObject.FindGameObjectWithTag("EventDescription").GetComponent<Text>();
@@ -221,6 +254,23 @@ public class Maintenance {
             option2.text = "";
             option3.text = "";
             eventImage.enabled = false;
+
+
+            Button option1a = GameObject.FindGameObjectWithTag("Option1Button").GetComponent<Button>();
+            //option1a.enabled = false;
+            option1a.interactable = false;
+            // option1a.alpha = 0f;
+
+            Button option2a = GameObject.FindGameObjectWithTag("Option2Button").GetComponent<Button>();
+            option2a.interactable = false;
+
+            Button option3a = GameObject.FindGameObjectWithTag("Option3Button").GetComponent<Button>();
+            option3a.interactable = false;
+
+            //Image option1aa= GameObject.FindGameObjectWithTag("Option1Button").GetComponent<Image>();
+            //option1aa.gameObject.SetActive(false);
+            //option1aa.alpha = 0f;
+
         }
 
         return false;
@@ -232,6 +282,14 @@ public class Maintenance {
         Debug.Log("Clicked 1");
         events.pick = 0;
         CloseEvent();
+        /*
+        GameObject gameobject1 = GameObject.FindWithTag("Option1Button");
+        gameobject1.SetActive(false);
+        GameObject gameobject2 = GameObject.FindWithTag("Option2Button");
+        gameobject2.SetActive(false);
+        GameObject gameobject3 = GameObject.FindWithTag("Option3Button");
+        gameobject3.SetActive(false);
+        */
     }
 
     public void selectSecondOption()
@@ -239,6 +297,15 @@ public class Maintenance {
         Debug.Log("Clicked 2");
         events.pick = 1;
         CloseEvent();
+
+        /*
+        GameObject gameobject1 = GameObject.FindWithTag("Option1Button");
+        gameobject1.SetActive(false);
+        GameObject gameobject2 = GameObject.FindWithTag("Option2Button");
+        gameobject2.SetActive(false);
+        GameObject gameobject3 = GameObject.FindWithTag("Option3Button");
+        gameobject3.SetActive(false);
+        */
     }
 
     public void selectThirdOption()
@@ -246,6 +313,15 @@ public class Maintenance {
         Debug.Log("Clicked 3");
         events.pick = 2;
         CloseEvent();
+
+        /*
+        GameObject gameobject1 = GameObject.FindWithTag("Option1Button");
+        gameobject1.SetActive(false);
+        GameObject gameobject2 = GameObject.FindWithTag("Option2Button");
+        gameobject2.SetActive(false);
+        GameObject gameobject3 = GameObject.FindWithTag("Option3Button");
+        gameobject3.SetActive(false);
+        */
     }
 }
 
