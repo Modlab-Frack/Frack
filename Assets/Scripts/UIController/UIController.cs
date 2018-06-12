@@ -85,7 +85,7 @@ public class UIController : MonoBehaviour
         else
             settingsPopup.Close();
 
-        if(owner == 3)
+        if(owner == 2)
             countThree = (countThree + 1) % 2;
         //Debug.Log("Publicity: " + MasterControl.control.currGame.players1[owner].GetComponent<Player>().publicity);
     }

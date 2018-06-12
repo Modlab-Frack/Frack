@@ -120,6 +120,7 @@ public class Maintenance {
 
     public bool ShowEvent()
     {
+        GameObject.FindGameObjectWithTag("PR").GetComponent<PlayerStatsDisplay>().statsValue += 5;
         GameObject eventPopup = GameObject.FindGameObjectWithTag("Event");
         Image eventImage = eventPopup.GetComponent<Image>();
         Event eventDesc = events.getRandomEvent();
