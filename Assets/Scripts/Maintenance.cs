@@ -312,6 +312,7 @@ public class Maintenance {
     {
         Debug.Log("Clicked 3");
         events.pick = 2;
+        //Button3(); //new addition 7/30
         CloseEvent();
 
         /*
