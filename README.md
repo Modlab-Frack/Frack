@@ -1,7 +1,7 @@
 Frack The Game
 
 To begin developing:
-1. If not already installed, download the Free version of Unity at:
+1. If not already installed, download the Free versio of Unity at:
    https://store.unity.com/download?ref=personal
 2. If git is not installed on your computer, install git.
 3. To get the workspace into your local system:
